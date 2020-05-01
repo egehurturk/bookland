@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="card" id="loginCard">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <img src="../static/img/logoreal.png" alt="logo" class="center marginb"> 
+            </div>
+        </div> 
+        <form action="{{ url_for('login') }}" method="post" class="nontransparent">
+            <div class="form-group">
+                <i class="far fa-user mr-2"></i><label for="formGroupExampleInput">Username</label>
+              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Type your username" name="username">
+            </div>
+            <div class="form-group">
+                <i class="fas fa-lock mr-2"></i><label for="formGroupExampleInput2">Password</label>
+              <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Type your password" name="password">
+            </div>
+            {% if message != "" %}
+            <div class="alert alert-danger center" role="alert">
+                {{ message }}
+              </div>
+            {% endif %}
+            <input type="submit" value="LOGIN" class="btn gradient-button gradient-button-1 btn-block nontransparent" name="command">
+          </form>
+          <br/>
+          <p class="text-center mt-3 text-muted">Don't have an account?<a href="{{ url_for('signup') }}"> Sign up here.</a></p>
+    </div>
+</div>
+        
+
+
+
+{% endblock %}

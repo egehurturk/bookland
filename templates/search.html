@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}Search for books{% endblock %}
+
+{% block content %}
+
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark modifybg">
+  <a class="navbar-brand" href="#">Bookland</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active mr-4">
+                <a href="#" class="nav-link">"Welcome, {{ loggedInUser[1] }}"</a>
+            </li>
+            <li class="nav-item active mr-4">
+                <a href="{{ url_for('search') }}" class="nav-link"><i class="fas fa-search mr-2"></i>Search</a>
+            </li>
+            <li class="nav-item active">
+                <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+  <!-- CONTAINER, SEARCH AREA -->
+
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+            <div class="card mt-5 mb-5">
+                <div class="card-body">
+                  <h1 class="display-5">Search for books in our database:</h1>
+                  <br/>
+                  <p>Search by:</p>
+                  <form action="{{ url_for('search') }}" method="post" class="mt-3 mb-3">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchBy" id="inlineRadio1" value="ISBN">
+                        <label class="form-check-label" for="inlineRadio1">ISBN</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchBy" id="inlineRadio" value="Author">
+                        <label class="form-check-label" for="inlineRadio2">Author</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchBy" id="inlineRadio3" value="Title">
+                        <label class="form-check-label" for="inlineRadio3">Title</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchBy" id="inlineRadio4" value="Year">
+                        <label class="form-check-label" for="inlineRadio3">Year</label>
+                    </div>               
+                    <input type="text" placeholder="Enter information" class="form-control mt-3" name="bookDetail">
+                    <p class="text-muted">Searches are not case-sensitive. </p>
+                    <input class="btn btn-primary btn-block mt-3" name="command" value="Search" type="submit">
+                  </form>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  {% if searchResult|length == 0 %}
+    {% if request.form.get("command") == None %}
+        
+    {% else %}
+        <div class="alert alert-danger center mt-5" role="alert">
+        Couldn't find any matches.  
+        </div>
+    {% endif %}
+  {% else %}
+  <div class="container">
+      <div class="row">
+          <div class="col">
+            <div class="card mb-3">
+                <div class="card-body">
+              <h1 class="result">Search Results:</h1>
+              <table class="table result">
+                  <thead>
+                    <tr>
+                      <th scope="col">ISBN</th>
+                      <th scope="col">Title</th>
+                      <th scope="col">Author</th>
+                      <th scope="col">Year</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      {% for value in searchResult %}
+                          <tr>
+                              <th scope="row">{{ value[1] }}</th>
+                              <td><a href="{{ url_for('bookpage', book_id=value[0]) }}">{{ value[2] }}</a></td>
+                              <td>{{ value[3] }}</td>
+                              <td>{{ value[4] }}</td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  {% endif %}
+  
+
+{% endblock %}

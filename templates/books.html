@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Book Details, {{ books[0][2] }}
+{% endblock title %}
+
+{% block content %}
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark modifybg">
+    <a class="navbar-brand" href="#">Bookland</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+              <li class="nav-item active">
+                  <a class="nav-link" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
+              </li>
+          </ul>
+      </div>
+      <div class="navbar-collapse collapse">
+          <ul class="navbar-nav ml-auto">
+              <li class="nav-item active mr-4">
+                  <a href="#" class="nav-link">"Welcome, {{ loggedInUser[1] }}"</a>
+              </li>
+              <li class="nav-item active mr-4">
+                  <a href="{{ url_for('search') }}" class="nav-link"><i class="fas fa-search mr-2"></i>Search</a>
+              </li>
+              <li class="nav-item active">
+                  <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+              </li>
+          </ul>
+      </div>
+  </nav>
+
+  <div class="container" id="detailSection">
+      <div class="row">
+          <div class="col-lg-6">
+            <div class="card radius mr-2 mb-5 mt-5" style="width: 30rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ books[0][2] }}</h5>
+                    <p class="card-text">
+                        <ul>
+                            <li>
+                                Author: {{ books[0][3] }}  
+                            </li>
+                            <br/>
+                            <li>
+                                Publication Year: {{ books[0][4] }}
+                            </li>
+                            <br/>
+                            <li>
+                                ISBN: {{ books[0][1] }}
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+              </div>
+              <div class="card radius mr-2 mb-5" style="width: 30rem;">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h5 class="card-title">Leave a Review!</h5>
+                                <p>Your rating:</p>
+                                <form action="{{ url_for('bookpage', book_id=books[0][0]) }}" method="post">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="reviewBy" value="5">
+                                        <label class="form-check-label" for="inlineRadio1">5</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="reviewBy" value="4">
+                                        <label class="form-check-label" for="inlineRadio2">4</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="reviewBy" value="3">
+                                        <label class="form-check-label" for="inlineRadio3">3</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="reviewBy" value="2">
+                                        <label class="form-check-label" for="inlineRadio1">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline mb-4">
+                                        <input class="form-check-input" type="radio" name="reviewBy" value="1">
+                                        <label class="form-check-label" for="inlineRadio1">1</label>
+                                    </div>
+                                    <textarea placeholder="Enter review" class="form-control mt-3" name="reviewDetail"></textarea>
+                                    {% if request.form.get('command') == None %}
+
+                                    {% else %}
+                                        {% if message == "Your review has been submitted!" %}
+                                            <div class="alert alert-success alert-dismissible fade show center mt-5" role="alert">
+                                                {{ message }}
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>  
+                                            </div>
+                                        {% else %}
+                                        <div class="alert alert-danger alert-dismissible fade show center mt-5" role="alert">
+                                            {{ message }}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>  
+                                        </div>
+                                        {% endif %}
+                                    {% endif %}
+                                    <input type="submit" name="submitButton" value="Submit Review" class="btn ok mt-3">
+                                    <input type="hidden" name="command" value="submit_review">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card text-white bg-info radius card-right mb-5 mt-5" style="width: 30rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Reviews in Goodreads</h5>
+                    <ul>
+                        <li>
+                            Total reviews: {{ countRatings }}
+                        </li>
+                        <li>
+                            Average rating: {{ averageRating }}
+                        </li>
+                    </ul>
+                    <hr/>
+                    <!-- REVİEWS-->
+
+                    {% for info in storeInfo %}
+                        <h4>{{ info[6] }} rated this book {{ info[2] }} out of 5:<h4>
+                        <p> -{{ info[1] }}</p>
+                        <hr>
+                    {% endfor %} 
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+
+ 
+
+
+
+
+
+{% endblock  %}
+
+

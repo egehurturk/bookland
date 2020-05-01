@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock%}
+
+
+{% block content %}
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark modifybg">
+  <a class="navbar-brand" href="#">Bookland</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active mr-4">
+                <a href="#" class="nav-link">"Welcome, {{ loggedInUser[1] }}"</a>
+            </li>
+            <li class="nav-item active mr-4">
+                <a href="{{ url_for('search') }}" class="nav-link"><i class="fas fa-search mr-2"></i>Search</a>
+            </li>
+            <li class="nav-item active">
+                <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<!-- CARDS, DISPLAY -->
+<section id="homeSection" style="margin-bottom: 50px;">
+    <h1 class="display-4 center olmadi mt-3">Last week's top rated books.*</h1>
+    <p class="text-muted olmadi">*Books are randomly assigned, not showing the real average score.</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mt-5 radius p-2" style="width: 16rem;">
+                    <img src="../static/img/book1.jpg" alt="book1" width="100%" height="80%">
+                    <div class="card-body">
+                        <h5>THINNER</h5>
+                    Thinner by Stephen King
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card mt-5 radius p-2" style="width: 16rem;">
+                    <img src="../static/img/book2.jpg" alt="book2" width="100%" height="80%">
+                    <h5 class="m-2">A GAME OF THRONES</h5>
+                    <div class="card-body">
+                    A Game Of Thrones by George RR Martin.
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card mt-5 radius p-2" style="width: 16rem;">
+                    <img src="../static/img/book3.jpg" alt=""book3 width="100%" height="80%">
+                    <h5 class="m-2">BURMESE DAYS</h5>
+                    <div class="card-body">
+                    Burmese Days by George Orwell
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="homeStarSection" >
+    <div class="container ">
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="olmadi mt-5 text-white">2020 All Rigths Reserved</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
