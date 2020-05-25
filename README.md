@@ -8,5 +8,4 @@ Users can also see the JSON formatting of any book's information by simply addin
 This app is made by flask, python, PSQL, and also html css. This project lasted for about 5 days, which I spent approximately 2-3 hours everyday for this particular project.
 
 
-# I'VE ALSO USED CANVA FOR DESIGNING THE LOGO AND THE DARK OVERLAY OF THE BACKGROUND IMAGE
-
+ I'VE ALSO USED CANVA FOR DESIGNING THE LOGO AND THE DARK OVERLAY OF THE BACKGROUND IMAGE
